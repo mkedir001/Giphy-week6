@@ -69,7 +69,7 @@
 
   function clicker() {
       var animal = $(this).attr("data-name");
-      var limit = 5;
+      var limit = $("#numberinput").val().trim();
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         animal + "&api_key=dc6zaTOxFJmzC&limit=" + limit;
 
