@@ -14,60 +14,12 @@
 
   <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4 mx-auto">TRAIN TIME DASHBOARD</h1>
-    <p class="lead mx-auto">This is a jumbotron that lists all the train information you need</p>
+    <h1 class="display-4 mx-auto">Welcome to Liri</h1>
+    <p class="lead mx-auto"></p>
   </div>
 </div>
 
- <div class="card ml-5 mb-3 col-md-10">
-<div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title"><strong>Train Schedule</strong></h3>
-            </div>
-            <div class="panel-body">
-              <table class="table table-hover" id='employee-table'>
-                <thead>
-                  <tr>
-                    <th>Train Name</th>
-                    <th>Destination</th>
-                    <th>First Train departure</th>
-                    <th>Frequency</th>
-                    <th>Next train</th>
-                    <th>Minutes till</th>
-                  </tr>
-                </thead>
-                <tbody>
-                
-                </tbody>
-              </table>
-            </div>
-          </div>
-</div>
-  
-<div class="card ml-5 col-md-10">
-  <div class="card-body">
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Train Name</label>
-    <input type="name" class="form-control" aria-describedby="emailHelp" placeholder="Train" id="name-input">
-    <small id="emailHelp" class="form-text text-muted"></small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Destination</label>
-    <input type="name" class="form-control" placeholder="Enter Destination" id="destination-input">
-  </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">First Train Time (HH:MM - Military Time</label>
-    <input type="text" class="form-control" placeholder="Enter start time" id="time-input">
-  </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Frequency (mn)</label>
-    <input type="number" class="form-control" placeholder="Enter Frequency" id="frequency-input">
-  </div>
- <button type="submit" class="btn btn-primary" id="enter">Submit</button>
-</form>
-  </div>
-</div>
+ 
 
 <script src="https://code.jquery.com/jquery.js"></script>
 
@@ -75,93 +27,10 @@
   
 
 
-  <script>
-    
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBA6zdquP4z4N_QdaFhyd0QI6YbRBDePcc",
-    authDomain: "class-assignment-662d6.firebaseapp.com",
-    databaseURL: "https://class-assignment-662d6.firebaseio.com",
-    projectId: "class-assignment-662d6",
-    storageBucket: "",
-    messagingSenderId: "933685290814"
-  };
-
-  firebase.initializeApp(config);  
-    
-var database = firebase.database();
-
-
-    $("#enter").on("click", function() {
-     
-      event.preventDefault();
-   
-      var tname = $("#name-input").val();
-      var tdestination = $("#destination-input").val();
-      var ttime = moment($("#time-input").val().trim(), "hmm").format("X");
-      var tfrequency = $("#frequency-input").val();
-      var trainInfo = {
-              name: tname,
-              destination: tdestination,
-              time: ttime,
-              frequency: tfrequency
-              };
-
-     database.ref().push(trainInfo);
-
-     console.log(trainInfo.name);
-     console.log(trainInfo.destination);
-     console.log(trainInfo.time);
-     console.log(trainInfo.frequency);
-     // console.log(trainInfo.start);
-
-     $("#name-input").val("");
-     $("#destination-input").val("");
-     $("#time-input").val("");
-     $("#frequency-input").val("");
-     // $("#start-input").val("");
-});
-
-     database.ref().on("child_added", function (childSnapshot, prevChildkey){
-      console.log(childSnapshot.val());
-
-      var tname = childSnapshot.val().name;
-      var tdestination = childSnapshot.val().destination;
-      var ttime = childSnapshot.val().time;
-      var tfrequency = childSnapshot.val().frequency;
-
-      var now = new Date();
-console.log(now.toString().substr(16,8));
-//        var now = new Date().toLocaleTimeString();
-// console.log("this is current time" + now);
-
-      console.log(tname);
-      console.log(tdestination);
-      console.log(ttime);
-      console.log(tfrequency);
-
-      var timepretty = moment.unix(ttime).format("HH:mm");
-      var trtime = moment().diff(moment.unix(ttime, "X"), "HH:mm");
-      var divided = trtime / tfrequency;
-      console.log("here is trtime " + divided);
-
-      // console.log(now.format("HH:mm"));
-      // var timetill = (now-ttime);
-      // var nextt = timetill/tfrequency;
-      // console.log("this is nexxt " + nextt);
-      var timetill = moment().diff(moment.unix(now-ttime, "X"), "hours");
-      // var secondStep = timetill/60;
-      console.log("this is the time till " + timetill);
-
-     $("#employee-table > tbody").append("<tr><td>" + tname + "</td><td>" + tdestination + "</td><td>" +
-  timepretty + "</td><td>" + tfrequency + "</td><td>" + "00:00" + "</td><td>" + "00:00" + "</td></tr>");
-});
-
-      
-  </script>
+  
 
 
 
-
+<script type="text/javascript" src="javascript/javascript.js"></script>
 </body>
 </html>
